@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\User\Desktop\SociaNetwork\SociaNetwork\obj\Debug\
+C:\Users\User\SocialNetworks\SociaNetwork\SociaNetwork\obj\Debug\
 SociaNetwork
 none
 false
 DEBUG;TRACE
-C:\Users\User\Desktop\SociaNetwork\SociaNetwork\App.xaml
+C:\Users\User\SocialNetworks\SociaNetwork\SociaNetwork\App.xaml
 16-308900004
-11504558044
-20-634368523
-135-1024302977
+1-1975775922
+21-1726851776
+135-1310395041
 HelperWindows\AddCommentWindow.xaml;HelperWindows\AddPostWindow.xaml;HelperWindows\EditPostWindow.xaml;HelperWindows\ListOfCommentsWindow.xaml;HelperWindows\ListOfPersonsWindow.xaml;LoginWindow.xaml;MainWindow.xaml;MessageWindow.xaml;RegisterWindow.xaml;SearchPeople\PersonInfo.xaml;ucWindows\myProfile.xaml;ucWindows\ucChangePassword.xaml;ucWindows\ucFind.xaml;ucWindows\ucFriendConection.xaml;ucWindows\ucNewPost.xaml;ucWindows\ucProfileEdit.xaml;
 
-False
+True
 
