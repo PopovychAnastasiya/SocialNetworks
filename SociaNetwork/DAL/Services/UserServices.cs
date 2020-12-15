@@ -304,13 +304,13 @@ namespace DAL.Services
 
             user = GetUser(NickNameRead());
 
-            //if(redisRepository.HasCache(user.NickName))// check if existed key in redis
-            //{
-            //    res = redisRepository.GetFriendsOfFriendCache(user.NickName); // get value
-            //    return res;
-            //}
+            if (redisRepository.HasCache(user.NickName))// check if existed key in redis
+            {
+                res = redisRepository.GetFriendsOfFriendCache(user.NickName); // get value
+                return res;
+            }
 
-            // Some operations wich takes much time
+            //Some operations wich takes much time
             var people = graphRepository.FriendsOfAFriend(new Person() {
 
                 Surname = user.Surname,
@@ -334,7 +334,7 @@ namespace DAL.Services
                 }
             }
 
-            //redisRepository.SetFriendsOfFriendCache(user.NickName, res, 3600);// hash this information with ttl = 1 hour
+            redisRepository.SetFriendsOfFriendCache(user.NickName, res, 3600);// hash this information with ttl = 1 hour
 
             return res;
            
