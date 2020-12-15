@@ -15,7 +15,7 @@ namespace DAL.Neo4JRepository
 
         public GraphRepository()
         {
-            _graphClient = new GraphClient(new Uri("http://localhost:7474/db/data"), "neo4j", "socialnetwork");
+            _graphClient = new GraphClient(new Uri("http://localhost:7474/db/data/"), "neo4j", "socialnetwork");
             _graphClient.Connect();
         }
 

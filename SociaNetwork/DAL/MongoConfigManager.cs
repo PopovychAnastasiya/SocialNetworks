@@ -28,7 +28,7 @@ namespace DAL
       
         private static string GetDefaultDatabaseName()
         {
-           return "test";
+           return "SocialNetwork";
         }
 
        

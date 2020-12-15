@@ -1,5 +1,6 @@
 ﻿using DAL.Enteties;
 using DAL.Repository;
+using DAL.RedisRepository;
 using System;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
@@ -22,10 +23,12 @@ namespace DAL.Services
     {
         UserRepository repository;
         GraphRepository graphRepository;
+        RedisRepository.RedisRepository redisRepository;
         public UserServices()
         {
             repository = new UserRepository();
             graphRepository = new GraphRepository();
+            redisRepository = new RedisRepository.RedisRepository();
         }
         //
         public bool CheckPassword(string nickname ,string password)
@@ -75,7 +78,7 @@ namespace DAL.Services
             return true;
         }
         //
-        public void NickNameWrite(string NickName)
+        public void NickNameWrite(string NickName) // save currect user nickname to file
         {
             var p = new NickInfo();
 
@@ -101,7 +104,7 @@ namespace DAL.Services
 
         }
 
-        public string NickNameRead()
+        public string NickNameRead() // read current user nickmane from file
         {
             var p = new NickInfo();
             using (FileStream fs = new FileStream("NickInfo.json", FileMode.OpenOrCreate))
@@ -301,6 +304,13 @@ namespace DAL.Services
 
             user = GetUser(NickNameRead());
 
+            //if(redisRepository.HasCache(user.NickName))// check if existed key in redis
+            //{
+            //    res = redisRepository.GetFriendsOfFriendCache(user.NickName); // get value
+            //    return res;
+            //}
+
+            // Some operations wich takes much time
             var people = graphRepository.FriendsOfAFriend(new Person() {
 
                 Surname = user.Surname,
@@ -308,7 +318,6 @@ namespace DAL.Services
                 Mail = user.Mail,
                 NickName = user.NickName
             });
-            
             foreach(var elem in people)
             {
                 bool temp = true;
@@ -324,6 +333,8 @@ namespace DAL.Services
                     res.Add(elem);
                 }
             }
+
+            //redisRepository.SetFriendsOfFriendCache(user.NickName, res, 3600);// hash this information with ttl = 1 hour
 
             return res;
            
@@ -380,6 +391,7 @@ namespace DAL.Services
 
                 User user2 = new User();
                 user2 = GetUser(nickname);
+
 
                 var temp = graphRepository.ConnectingPaths(new Person()
                 {
